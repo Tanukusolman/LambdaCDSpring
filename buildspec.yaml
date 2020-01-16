@@ -4,8 +4,7 @@ phases:
     runtime-versions: 
         java: 11
   build: 
-    commands: 
-      - 
+    commands:  
       - aws cloudformation package --template-file sam.yaml --s3-bucket sample-cicd-demo --output-template-file outputSamTemplate.yaml
 artifacts:
   type: jar
