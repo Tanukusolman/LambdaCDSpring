@@ -5,6 +5,8 @@ phases:
         java: openjdk11
   build: 
     commands:  
+      - mvn clean
+      - mvn install
       - aws cloudformation package --template-file sam.yaml --s3-bucket sample-cicd-nodejs --output-template-file outputSamTemplate.yaml
 artifacts:
   type: jar
