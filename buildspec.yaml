@@ -2,12 +2,30 @@ version: 0.2
 phases: 
   install: 
     runtime-versions: 
-        python: 3.8
+        java: 11
   build: 
     commands: 
+      - 
       - aws cloudformation package --template-file sam.yaml --s3-bucket sample-cicd-demo --output-template-file outputSamTemplate.yaml
 artifacts:
-  type: zip
+  type: jar
   files:
     - sam.yaml
     - outputSamTemplate.yaml
+    
+    
+    
+# version: 0.2
+
+# phases:
+#   build:
+#     commands:
+#       - echo Build started on `date`
+#       - mvn test
+#   post_build:
+#     commands:
+#       - echo Build completed on `date`
+#       - mvn package
+# artifacts:
+#   files:
+#     - zalando-boot-etcd/target/zalando-boot-etcd-2.4-SNAPSHOT.jar    
