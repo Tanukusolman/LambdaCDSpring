@@ -1,0 +1,13 @@
+version: 0.2
+phases: 
+  install: 
+    runtime-versions: 
+        python: 3.8
+  build: 
+    commands: 
+      - aws cloudformation package --template-file samTemplate.yaml --s3-bucket sample-cicd-demo --output-template-file outputSamTemplate.yaml
+artifacts:
+  type: zip
+  files:
+    - samTemplate.yaml
+    - outputSamTemplate.yaml
