@@ -12,6 +12,7 @@ artifacts:
   files:
     - sam.yaml
     - outputSamTemplate.yaml
+    - target/microservice.jar
     
     
     
