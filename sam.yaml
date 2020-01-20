@@ -1,57 +1,28 @@
-# AWSTemplateFormatVersion: '2010-09-09'
-# Transform: AWS::Serverless-2016-10-31
-# Description: Example Pet Store API written in jersey with the aws-serverless-java-container library
-
-# Globals:
-#   Api:
-#     # API Gateway regional endpoints
-#     EndpointConfiguration: REGIONAL
-
-# Resources:
-#   PetStoreFunction:
-#     Type: AWS::Serverless::Function
-#     Properties:
-#       Handler: com.amazonaws.serverless.sample.jersey.StreamLambdaHandler::handleRequest
-#       Runtime: java8
-#       CodeUri: target/serverless-jersey-example-1.0-SNAPSHOT-lambda-package.zip
-#       MemorySize: 512
-#       Policies: AWSLambdaBasicExecutionRole
-#       Timeout: 20
-#       Events:
-#         GetResource:
-#           Type: Api
-#           Properties:
-#             Path: /{proxy+}
-#             Method: any
-
-# Outputs:
-#   JerseyPetStoreApi:
-#     Description: URL for application
-#     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/pets'
-#     Export:
-#       Name: JerseyPetStoreApi
-
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Outputs the time
+Description: Example Pet Store API written in jersey with the aws-serverless-java-container library
+
+Globals:
+  Api:
+    # API Gateway regional endpoints
+    EndpointConfiguration: REGIONAL
 
 Resources:
-  TimeFunction:
+  PetStoreFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda_function.lambda_handler
+      Handler: com.amazonaws.serverless.sample.jersey.StreamLambdaHandler::handleRequest
       Runtime: java8
-      Role:
-        Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+      CodeUri: target/serverless-jersey-example-1.0-SNAPSHOT-lambda-package.zip
+      MemorySize: 512
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 20
       Events:
-        GetEvent:
+        GetResource:
           Type: Api
           Properties:
-            Path: /getazs
-            Method: get
-      CodeUri: ./
+            Path: /{proxy+}
+            Method: any
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
@@ -68,3 +39,49 @@ Resources:
       Path: /
       ManagedPolicyArns:
       - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+
+# Outputs:
+#   JerseyPetStoreApi:
+#     Description: URL for application
+#     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/pets'
+#     Export:
+#       Name: JerseyPetStoreApi
+
+# AWSTemplateFormatVersion: '2010-09-09'
+# Transform: AWS::Serverless-2016-10-31
+# Description: Outputs the time
+
+# Resources:
+#   TimeFunction:
+#     Type: AWS::Serverless::Function
+#     Properties:
+#       Handler: lambda_function.lambda_handler
+#       Runtime: java8
+#       Role:
+#         Fn::GetAtt:
+#         - LambdaExecutionRole
+#         - Arn
+#       Events:
+#         GetEvent:
+#           Type: Api
+#           Properties:
+#             Path: /getazs
+#             Method: get
+#       CodeUri: ./
+#   LambdaExecutionRole:
+#     Description: Creating service role in IAM for AWS Lambda
+#     Type: AWS::IAM::Role
+#     Properties:
+#       #RoleName:
+#       # Fn::Sub: CodeStar-${ProjectId}-Execution${Stage}
+#       AssumeRolePolicyDocument:
+#         Statement:
+#         - Effect: Allow
+#           Principal:
+#             Service:
+#             - lambda.amazonaws.com
+#           Action: sts:AssumeRole
+#       Path: /
+#       ManagedPolicyArns:
+#       - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
